@@ -40,16 +40,16 @@ local function calculateAnima()
     local inventoryAnimaItems = getAnimaItems()
     local sum = 0;
     for _, animaItem in ipairs(inventoryAnimaItems) do
-        print(animaItem)
-        print(GetItemSpell(animaItem["info"]))
+        --print(animaItem)
+        --print(GetItemSpell(animaItem["info"]))
         local spellName, spellID = GetItemSpell(animaItem["info"])
-        print(animaSpellValues[spellID])
+        --print(animaSpellValues[spellID])
         sum = sum + (animaSpellValues[spellID] * animaItem["count"])
     end
-    print(sum)
+    print("Total Anima: "..tostring(sum))
 end
 
-SLASH_TEST1 = "/test"
+SLASH_TEST1 = "/ac"
 SlashCmdList["TEST"] = calculateAnima;
 
 -- texture 
