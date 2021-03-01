@@ -1,0 +1,6 @@
+## Interface: 90002
+## Title: AnimaCalculator
+## Author: John Doe
+## Version: 1.0
+
+AnimaCalculator.lua
