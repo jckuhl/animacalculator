@@ -14,6 +14,15 @@ local function getItemFromItemString(itemLink)
     return "000000"
 end
 
+local function awaitItemLoad(itemInfo)
+    local item = Item:CreateFromItemID(itemInfo)
+    local spellName, spellID;
+    item:ContinueOnItemLoad(function()
+        spellName, spellID = GetItemSpell(itemInfo);
+    end)
+    return spellName, spellID
+end
+
 local function getAnimaItems()
     local inventoryAnimaItems = {}
     for bagID=0, 4 do
@@ -40,10 +49,8 @@ local function calculateAnima()
     local inventoryAnimaItems = getAnimaItems()
     local sum = 0;
     for _, animaItem in ipairs(inventoryAnimaItems) do
-        --print(animaItem)
-        --print(GetItemSpell(animaItem["info"]))
         local spellName, spellID = GetItemSpell(animaItem["info"])
-        --print(animaSpellValues[spellID])
+        --local spellName, spellID = awaitItemLoad(animaItem["info"])
         sum = sum + (animaSpellValues[spellID] * animaItem["count"])
     end
     print("Total Anima: "..tostring(sum))
@@ -51,18 +58,3 @@ end
 
 SLASH_TEST1 = "/ac"
 SlashCmdList["TEST"] = calculateAnima;
-
--- texture 
--- String - the texture for the item in the specified bag slot
--- itemCount 
--- Number - the number of items in the specified bag slot
--- locked 
--- Boolean - 1 if the item is locked by the server, nil otherwise.
--- quality 
--- Number - the numeric quality of the item
--- readable 
--- Boolean - 1 if the item can be "read" (as in a book)
--- lootable 
--- Boolean - 1 if the item is a temporary container containing items that can be looted; otherwise nil.
--- itemLink 
--- a hyperlink for the item.
